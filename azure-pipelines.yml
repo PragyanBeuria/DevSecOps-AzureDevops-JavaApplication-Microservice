@@ -1,0 +1,29 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  name: mypool
+
+jobs:
+- job: Print_Console_Job
+  displayName: "Print Console Job"
+  steps:
+  - script: echo "my first file in YAML"
+    displayName: "Print Console for demo"
+
+- job: Sonar_SAST_Scan_Job
+  displayName: "Sonar SAST Scan Job"
+  container: 
+    image: maven:3.8.1-openjdk-17-slim
+  steps:
+  - checkout: self
+  - script: |
+      mvn verify package sonar:sonar \
+      -Dsonar.host.url=https://sonarcloud.io/ \
+      -Dsonar.organization=Pragyan \
+      -Dsonar.projectKey=pragyanbeuria \
+      -Dsonar.login=662a569b38c065fba0d07f11d56b7aca47e7c17d
+    displayName: "Integrate SAST using SonarCloud in Azure DevSecOps Pipeline"
+
