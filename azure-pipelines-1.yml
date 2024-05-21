@@ -17,7 +17,7 @@ jobs:
       -Dsonar.host.url=https://sonarcloud.io/ \
       -Dsonar.organization=Pragyan \
       -Dsonar.projectKey=pragyanbeuria \
-      -Dsonar.login=9c555c84ef61d6f9adf8b96e9f0f22362c4da808
+      -Dsonar.token=9c555c84ef61d6f9adf8b96e9f0f22362c4da808
       sleep 5
       sudo apt update
       sudo apt install curl jq 
