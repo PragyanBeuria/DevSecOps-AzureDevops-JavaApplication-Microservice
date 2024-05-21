@@ -13,9 +13,5 @@ jobs:
   steps:
   - checkout: self
   - script: |
-      mvn verify package sonar:sonar \
-      -Dsonar.host.url=https://sonarcloud.io/ \
-      -Dsonar.organization=Pragyan \
-      -Dsonar.projectKey=pragyanbeuria \
-      -Dsonar.login=fa619f3ab0507feae30e285e75d5a197956e2566
-      
+      mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devsecops66_mavenproject
+
