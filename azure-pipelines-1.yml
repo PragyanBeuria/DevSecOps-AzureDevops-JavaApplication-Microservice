@@ -12,5 +12,7 @@ jobs:
   steps:
   - checkout: self
   - script: |
-      mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devsecops66_mavenproject
-
+      mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+        -Dsonar.projectKey=devsecops66_mavenproject \
+        -Dsonar.organization=devsecops \  # Only if using SonarCloud
+        -Dsonar.login=$(SONAR_TOKEN)
