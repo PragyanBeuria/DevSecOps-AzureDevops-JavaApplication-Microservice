@@ -1,21 +1,17 @@
 trigger:
-  branches:
-    include:
-      - master
+- master
 
 pool:
-  name: mypool
-jobs:
-- job: Sonar_SAST_Scan_Job
-  container: maven:3.8.1-openjdk-17-slim
-  steps:
-  - checkout: self
-  - script: |
-      mvn verify package sonar:sonar \
-      -Dsonar.host.url=https://sonarcloud.io/ \
-      -Dsonar.organization=Pragyan \
-      -Dsonar.projectKey=pragyanbeuria \
-      -Dsonar.login=662a569b38c065fba0d07f11d56b7aca47e7c17d
+  vmImage: ubuntu-latest
 
+variables:
+- group: "SECURE_TOKENS"
+- name: snyk_token
+  value: $[variables.SNYKTOKEN]
 
-
+steps:
+- script: |
+    SNYK_TOKEN=$(snyk_token)
+    export SNYK_TOKEN
+    mvn snyk:test -fn 
+  displayName: "Integrate SCA scan using Snyk in ADO DevSecOps Pipeline"
