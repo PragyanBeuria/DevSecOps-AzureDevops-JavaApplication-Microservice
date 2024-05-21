@@ -1,0 +1,15 @@
+trigger:
+- master
+
+pool:
+  poolA
+variables:
+- group: "SECURE_TOKENS"
+- name: snyk_token
+  value: $[variables.SNYKTOKEN]
+
+steps:
+- script: |
+    SNYK_TOKEN=$(snyk_token)
+    export SNYK_TOKEN
+    mvn snyk:test -fn 
