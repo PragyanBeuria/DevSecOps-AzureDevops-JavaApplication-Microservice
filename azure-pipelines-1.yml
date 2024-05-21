@@ -4,8 +4,7 @@ trigger:
       - master
 
 pool:
-  name: Azure Pipelines
-
+  name: poolA
 jobs:
 - job: Print_Console_Job
   displayName: "Print Console Job"
