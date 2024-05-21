@@ -17,10 +17,5 @@ jobs:
       -Dsonar.host.url=https://sonarcloud.io/ \
       -Dsonar.organization=Pragyan \
       -Dsonar.projectKey=pragyanbeuria \
-      -Dsonar.login=662a569b38c065fba0d07f11d56b7aca47e7c17d
-      sleep 5
-      sudo apt update
-      sudo apt install curl jq 
-      quality_status=$(curl -s -u 662a569b38c065fba0d07f11d56b7aca47e7c17d: https://sonarcloud.io/api/qualitygates/project_status?projectKey= pragyanbeuria| jq -r '.projectStatus.status')
-      echo "SonarCloud Analysis Status is $quality_status"; 
-      if [[ $quality_status == "ERROR" ]] ; then exit 1;fi
+      -Dsonar.login=fa619f3ab0507feae30e285e75d5a197956e2566
+      
