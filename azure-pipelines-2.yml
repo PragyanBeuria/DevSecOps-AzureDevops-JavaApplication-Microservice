@@ -2,17 +2,18 @@ trigger:
 - main
 
 pool:
-  poolA
+  name: poolA
 
 steps:
-- script: |
-      wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz
-      tar -xvf ZAP_2.14.0_Linux.tar.gz
-      cd ZAP_2.14.0
-      ./zap.sh -cmd -quickurl https://www.example.com -quickprogress -quickout /home/vsts/_work/1/a/zap_report.html 
+- powershell: |
+    Invoke-WebRequest -Uri "https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Windows.zip" -OutFile "ZAP_2.14.0_Windows.zip"
+    Expand-Archive -Path "ZAP_2.14.0_Windows.zip" -DestinationPath "."
+    cd ZAP_2.14.0
+    Start-Process -FilePath "zap.bat" -ArgumentList "-cmd", "-quickurl", "https://www.example.com", "-quickprogress", "-quickout", "$(Build.ArtifactStagingDirectory)\zap_report.html" -NoNewWindow -Wait
   displayName: "Integrate DAST scan using OWASP ZAP in ADO DevSecOps Pipeline"
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: zap_report.html
+    pathToPublish: '$(Build.ArtifactStagingDirectory)\zap_report.html'
+    artifactName: zap_report
+
